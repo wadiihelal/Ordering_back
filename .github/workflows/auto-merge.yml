@@ -3,33 +3,25 @@ name: Auto Merge on Push
 on:
   push:
     branches:
-      - '**'  # Trigger on push to any branch
+      - '**'
 jobs:
   project_build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.1.1
-
-      # Install the Java version 17
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'adopt'
-
-      # Set up the Maven dependencies caching
       - name: Set up the Maven dependencies caching
         uses: actions/cache@v4
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
-
-      # Install Maven dependencies
       - name: Install Maven dependencies
         run: mvn install
-
-      # Run tests of the Spring Boot demo project
       - name: Run tests
         run: mvn --batch-mode --update-snapshots verify
 
@@ -42,8 +34,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0  # Fetch all branches
-
+          fetch-depth: 0
       - name: Merge to Main
         run: |
           git config --global user.name "GitHub Action"
