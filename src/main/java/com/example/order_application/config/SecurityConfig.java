@@ -17,7 +17,10 @@ public class SecurityConfig {
                     "/swagger-ui/**",
                     "/swagger-ui.html"
                 ).permitAll()
-                .anyRequest().authenticated()
+                    .requestMatchers("/categories").permitAll()
+                    .requestMatchers("/actuator/**").permitAll()
+
+                    .anyRequest().authenticated()
             )
             .csrf(csrf -> csrf.disable()); // Disable CSRF for Swagger access
 

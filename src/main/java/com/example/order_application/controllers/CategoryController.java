@@ -16,6 +16,7 @@ import java.util.List;
 @Tag(name = "Categories", description = "API for managing categories")
 @RestController // Use @RestController instead of @Controller to avoid manual @ResponseBody
 @RequestMapping("/categories")
+@CrossOrigin
 public class CategoryController {
 
     @Autowired
